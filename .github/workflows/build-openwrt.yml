@@ -61,8 +61,8 @@ on:
   ## If you want to use 'watch', 'schedule' events, make sure you also have changed the jobs' `if` condition.
   ## For 'schedule', see examples in: https://crontab.guru/examples.html
   ##     e.g. every sunday midnight: '0 0 * * 0' every midnight: '0 0 * * *'
-  # schedule:
-  #   - cron: '0 0 * * 0'
+  schedule:
+     - cron: '0 9 * * 5'
   # watch:
   #   types: [started]
 
@@ -75,12 +75,12 @@ jobs:
     # * To build on schedule event, add OR condition:
     #     github.event_name == 'schedule'
     # * To build when YOU stars YOUR OWN project, add OR condition:
-    #     github.event_name == 'watch' && github.event.action == 'started' && github.event.repository.owner.id == github.event.sender.id
+    #      github.event_name == 'push'
+    #    && !contains(github.event.head_commit.message, '#build-package#')
     # For `github.event` structures, see: https://developer.github.com/v3/activity/events/types/
     if: |
       (
-        github.event_name == 'push'
-        && !contains(github.event.head_commit.message, '#build-package#')
+        github.event_name == 'watch' && github.event.action == 'started' && github.event.repository.owner.id == github.event.sender.id        
       ) || (
         github.event_name == 'repository_dispatch'
         && github.event.action == 'build-inc'
