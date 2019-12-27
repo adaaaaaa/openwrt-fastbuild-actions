@@ -80,7 +80,7 @@ jobs:
     # For `github.event` structures, see: https://developer.github.com/v3/activity/events/types/
     if: |
       (
-        github.event_name == 'watch' && github.event.action == 'started' && github.event.repository.owner.id == github.event.sender.id        
+        github.event_name == 'watch' && github.event.action == 'started' && github.event.repository.owner.id == github.event.sender.id
       ) || (
         github.event_name == 'repository_dispatch'
         && github.event.action == 'build-inc'
